@@ -103,7 +103,7 @@
             display: none;
         }
 
-        /* ZONA 2: GAME INTERAKTIF (DISEMBUNYIKAN DI AWAL) */
+        /* ZONA 2: GAME INTERAKTIF */
         .game-box {
             background: #e8f5e9;
             padding: 25px;
@@ -170,7 +170,7 @@
     <!-- TAHAP 1: MENGENAL ANGKA LEWAT KARTU DIGITAL -->
     <div class="materi-box" id="zonaMateri">
         <h3>📖 Langkah 1: Ayo Kenali Angka 1 sampai 20!</h3>
-        <p style="color:#555; margin-top:-5px;">Klik tombol panah untuk mengubah kartu, klik kotaknya untuk mendengar suara AI!</p>
+        <p style="color:#555; margin-top:-5px;">Klik tombol panah untuk mengubah kartu, klik kotaknya untuk mendengar suara!</p>
         
         <div class="flashcard-display">
             <button class="btn-nav" onclick="geserMateri(-1)">⬅️</button>
@@ -184,11 +184,10 @@
         </div>
         <p style="font-size: 0.9em; color: #ff5722; font-weight: bold;">Kemajuan Belajar: <span id="progressMateri">1</span> / 20</p>
         
-        <!-- Tombol pemicu game yang akan muncul setelah anak belajar -->
         <button class="btn-mulai-game" id="btnBukaGame" onclick="aktifkanGameArea()">🎮 Hore! Yuk Sekarang Kita Main Game!</button>
     </div>
 
-    <!-- TAHAP 2: BERMAIN GAME (MUNCUL PALING AKHIR) -->
+    <!-- TAHAP 2: BERMAIN GAME -->
     <div class="game-box" id="zonaGame">
         <h3>🎮 Langkah 2: Mainkan Game Hitung Benda!</h3>
         <p>Hitunglah berapa banyak benda di dalam kotak putih, lalu klik angka yang benar!</p>
@@ -220,12 +219,10 @@
             boxBenda.innerHTML += emojiAktif + " ";
         }
         
-        // Atur ukuran tulisan emoji agar rapi saat jumlahnya banyak
         if (indexMateri > 12) boxBenda.style.fontSize = "1.5em";
         else if (indexMateri > 6) boxBenda.style.fontSize = "2em";
         else boxBenda.style.fontSize = "2.8em";
 
-        // Jika anak sudah berhasil melihat kartu sampai angka 20, tombol game akan muncul
         if(indexMateri === 20) {
             document.getElementById('btnBukaGame').style.display = "block";
         }
@@ -252,7 +249,6 @@
     }
 
     function aktifkanGameArea() {
-        // Sembunyikan modul belajar kartunya, tampilkan gamenya
         document.getElementById('zonaMateri').style.display = "none";
         document.getElementById('zonaGame').style.display = "block";
         generateQuestion();
@@ -275,3 +271,74 @@
         const wadahDisplay = document.getElementById('itemDisplay');
         wadahDisplay.innerHTML = "";
         for (let i = 0; i < jumlahBendaGame; i++) {
+            wadahDisplay.innerHTML += emojiGame + " ";
+        }
+
+        // Buat Pilihan Ganda (1 jawaban benar, 3 pengecoh)
+        let pilihan = [jumlahBendaGame];
+        while(pilihan.length < 4) {
+            let acakPalsu = Math.floor(Math.random() * 20) + 1;
+            if(!pilihan.includes(acakPalsu)) {
+                pilihan.push(acakPalsu);
+            }
+        }
+        // Acak posisi tombol pilihan
+        pilihan.sort(() => Math.random() - 0.5);
+
+        const containerOpsi = document.getElementById('optionsContainer');
+        containerOpsi.innerHTML = "";
+        pilihan.forEach(angka => {
+            let btn = document.createElement('button');
+            btn.className = 'btn-option';
+            btn.innerText = angka;
+            btn.onclick = () => cekJawaban(angka, btn);
+            containerOpsi.appendChild(btn);
+        });
+    }
+
+    function cekJawaban(pilihanSiswa, tombolElemen) {
+        if(statusMenjawab) return;
+        statusMenjawab = true;
+
+        const feedback = document.getElementById('feedbackText');
+        const semuaTombol = document.querySelectorAll('.btn-option');
+
+        // Nonaktifkan semua tombol setelah memilih
+        semuaTombol.forEach(btn => btn.style.pointerEvents = 'none');
+
+        if(pilihanSiswa === jumlahBendaGame) {
+            tombolElemen.classList.add('correct');
+            feedback.innerText = "🎉 Hebat! Jawaban Kamu Benar!";
+            feedback.style.color = "#2e7d32";
+            skorSiswa += 10;
+            document.getElementById('scoreValue').innerText = skorSiswa;
+            
+            // Suara benar
+            if ('speechSynthesis' in window) {
+                let ucapan = new SpeechSynthesisUtterance("Hebat, benar!");
+                ucapan.lang = 'id-ID';
+                window.speechSynthesis.speak(ucapan);
+            }
+        } else {
+            tombolElemen.classList.add('wrong');
+            feedback.innerText = `❌ Kurang tepat. Yang benar adalah ${jumlahBendaGame}.`;
+            feedback.style.color = "#d32f2f";
+            
+            // Tunjukkan mana tombol yang benar
+            semuaTombol.forEach(btn => {
+                if(parseInt(btn.innerText) === jumlahBendaGame) {
+                    btn.classList.add('correct');
+                }
+            });
+        }
+
+        document.getElementById('btnNext').style.display = "inline-block";
+    }
+
+    function nextQuestion() {
+        generateQuestion();
+    }
+</script>
+
+</body>
+</html>
