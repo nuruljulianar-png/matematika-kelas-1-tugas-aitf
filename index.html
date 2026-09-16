@@ -127,9 +127,10 @@
     <!-- KANVAS PEMBELAJARAN: VIDEO MATERI -->
     <div class="section-box">
         <h3>📺 Langkah 1: Tonton Video Penjelasan Ini Ya!</h3>
+        <p style="font-size: 0.9em; color: #666; margin-top: -5px;">💡 *Klik tombol putar dan pastikan ikon volume di dalam video tidak tersilang ya!*</p>
         <div class="video-container">
-            <!-- Contoh menggunakan video edukasi membilang, Bapak/Ibu bisa mengganti ID video YouTube ini nanti jika punya video sendiri -->
-            <iframe src="https://youtube.com" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            <!-- Video baru yang bersumber dari Balai Penjaminan Mutu Pendidikan / Kemendikbud yang aman diembed -->
+            <iframe src="https://youtube.com" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
         </div>
     </div>
 
@@ -141,7 +142,7 @@
         <div class="item-display" id="itemDisplay">🍎 🍎 🍎</div>
         
         <div class="options-container" id="optionsContainer">
-            <!-- Tombol Pilihan akan muncul otomatis via JavaScript -->
+            <!-- Tombol Jawaban diisi JavaScript -->
         </div>
 
         <div class="feedback" id="feedbackText"></div>
@@ -151,9 +152,7 @@
 </div>
 
 <script>
-    // Data emojis yang akan dihitung anak-anak agar menarik
     const itemsPool = ['🍎', '🍓', '⭐', '🎈', '🐱', '🚗', '🍦', '🐝'];
-    
     let currentCount = 0;
     let score = 0;
     let hasAnswered = false;
@@ -163,32 +162,25 @@
         document.getElementById('feedbackText').innerText = "";
         document.getElementById('btnNext').style.display = "none";
         
-        // Tentukan jumlah benda acak antara 1 sampai 20
         currentCount = Math.floor(Math.random() * 20) + 1;
-        
-        // Pilih emoji secara acak
         const randomEmoji = itemsPool[Math.floor(Math.random() * itemsPool.length)];
         
-        // Tampilkan benda di kotak putih
         const displayBox = document.getElementById('itemDisplay');
         displayBox.innerHTML = "";
         for (let i = 0; i < currentCount; i++) {
             displayBox.innerHTML += randomEmoji + " ";
         }
 
-        // Buat pilihan jawaban (1 jawaban benar, 3 pilihan salah yang mendekati)
         let options = [currentCount];
         while (options.length < 4) {
-            let fakeOption = currentCount + (Math.floor(Math.random() * 5) - 2); // variasi jawaban mengecoh sekitar angka asli
+            let fakeOption = currentCount + (Math.floor(Math.random() * 5) - 2);
             if (fakeOption >= 1 && fakeOption <= 20 && !options.includes(fakeOption)) {
                 options.push(fakeOption);
             }
         }
         
-        // Acak urutan tombol pilihan jawaban
         options.sort(() => Math.random() - 0.5);
 
-        // Render tombol ke HTML
         const container = document.getElementById('optionsContainer');
         container.innerHTML = "";
         options.forEach(num => {
@@ -201,9 +193,8 @@
     }
 
     function checkAnswer(selectedNum, clickedButton) {
-        if (hasAnswered) return; // Mencegah klik berulang setelah menjawab
+        if (hasAnswered) return;
         hasAnswered = true;
-
         const feedback = document.getElementById('feedbackText');
         
         if (selectedNum === currentCount) {
@@ -215,7 +206,6 @@
             clickedButton.classList.add('wrong');
             feedback.innerHTML = `<span style='color: #f44336;'>❌ Oops! Kurang Tepat. Yang benar adalah ${currentCount}. Ayo coba lagi! 💪</span>`;
             
-            // Highlight tombol yang seharusnya benar
             const buttons = document.getElementsByClassName('btn-option');
             for(let btn of buttons) {
                 if(parseInt(btn.innerText) === currentCount) {
@@ -223,7 +213,6 @@
                 }
             }
         }
-        
         document.getElementById('btnNext').style.display = "inline-block";
     }
 
@@ -231,7 +220,6 @@
         generateQuestion();
     }
 
-    // Mulai game pertama kali saat halaman dimuat
     generateQuestion();
 </script>
 
