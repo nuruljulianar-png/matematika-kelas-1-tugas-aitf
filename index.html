@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Belajar Membilang 1-20 - Kelas 1 SD</title>
+    <style>
+        body {
+            font-family: 'Comic Sans MS', 'Chalkboard SE', 'Arial', sans-serif;
+            background-color: #eef9ff;
+            color: #333;
+            margin: 0;
+            padding: 20px;
+            text-align: center;
+        }
+        .container {
+            max-width: 800px;
+            background: white;
+            margin: 0 auto;
+            padding: 30px;
+            border-radius: 25px;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.1);
+            border: 5px solid #ffcc00;
+        }
+        h1 { color: #ff5722; font-size: 2.5em; margin-bottom: 10px; }
+        .sub-title { color: #4caf50; font-size: 1.2em; font-weight: bold; margin-bottom: 30px; }
+        
+        /* Section Video */
+        .section-box {
+            background: #fff9db;
+            padding: 20px;
+            border-radius: 20px;
+            margin-bottom: 30px;
+            border: 2px dashed #ff9800;
+        }
+        .video-container {
+            position: relative;
+            padding-bottom: 56.25%;
+            height: 0;
+            overflow: hidden;
+            border-radius: 15px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+        .video-container iframe {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+        }
+
+        /* Section Game */
+        .game-box {
+            background: #e8f5e9;
+            padding: 25px;
+            border-radius: 20px;
+            border: 3px solid #2e7d32;
+        }
+        .item-display {
+            background: white;
+            min-height: 120px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 10px;
+            padding: 20px;
+            border-radius: 15px;
+            border: 2px solid #a5d6a7;
+            font-size: 3em;
+        }
+        .options-container {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 25px;
+            flex-wrap: wrap;
+        }
+        .btn-option {
+            background: #2196f3;
+            color: white;
+            font-size: 1.8em;
+            font-weight: bold;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 15px;
+            cursor: pointer;
+            box-shadow: 0 5px #0b7dda;
+            transition: 0.1s;
+        }
+        .btn-option:active {
+            box-shadow: 0 2px #0b7dda;
+            transform: translateY(3px);
+        }
+        .btn-option.correct { background-color: #4caf50 !important; box-shadow: 0 5px #388e3c; }
+        .btn-option.wrong { background-color: #f44336 !important; box-shadow: 0 5px #d32f2f; }
+
+        .feedback {
+            font-size: 1.5em;
+            font-weight: bold;
+            margin-top: 20px;
+            min-height: 40px;
+        }
+        .score-box {
+            font-size: 1.3em;
+            font-weight: bold;
+            color: #2e7d32;
+            margin-top: 15px;
+        }
+        .btn-next {
+            background: #ff9800;
+            color: white;
+            font-size: 1.2em;
+            border: none;
+            padding: 10px 25px;
+            border-radius: 10px;
+            cursor: pointer;
+            margin-top: 15px;
+            display: none;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>🔢 Yuk, Belajar Membilang! 🌟</h1>
+    <p class="sub-title">Matematika Seru untuk Kelas 1 SD (Benda 1 - 20)</p>
+
+    <!-- KANVAS PEMBELAJARAN: VIDEO MATERI -->
+    <div class="section-box">
+        <h3>📺 Langkah 1: Tonton Video Penjelasan Ini Ya!</h3>
+        <div class="video-container">
+            <!-- Contoh menggunakan video edukasi membilang, Bapak/Ibu bisa mengganti ID video YouTube ini nanti jika punya video sendiri -->
+            <iframe src="https://youtube.com" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        </div>
+    </div>
+
+    <!-- KANVAS APLIKASI INTERAKTIF: GAME MEMBILANG -->
+    <div class="game-box">
+        <h3>🎮 Langkah 2: Mainkan Game Hitung Benda!</h3>
+        <p>Hitunglah berapa banyak benda di dalam kotak putih, lalu klik angka yang benar!</p>
+        
+        <div class="item-display" id="itemDisplay">🍎 🍎 🍎</div>
+        
+        <div class="options-container" id="optionsContainer">
+            <!-- Tombol Pilihan akan muncul otomatis via JavaScript -->
+        </div>
+
+        <div class="feedback" id="feedbackText"></div>
+        <div class="score-box">Skor Kamu: <span id="scoreValue">0</span></div>
+        <button class="btn-next" id="btnNext" onclick="nextQuestion()">Soal Selanjutnya ➡️</button>
+    </div>
+</div>
+
+<script>
+    // Data emojis yang akan dihitung anak-anak agar menarik
+    const itemsPool = ['🍎', '🍓', '⭐', '🎈', '🐱', '🚗', '🍦', '🐝'];
+    
+    let currentCount = 0;
+    let score = 0;
+    let hasAnswered = false;
+
+    function generateQuestion() {
+        hasAnswered = false;
+        document.getElementById('feedbackText').innerText = "";
+        document.getElementById('btnNext').style.display = "none";
+        
+        // Tentukan jumlah benda acak antara 1 sampai 20
+        currentCount = Math.floor(Math.random() * 20) + 1;
+        
+        // Pilih emoji secara acak
+        const randomEmoji = itemsPool[Math.floor(Math.random() * itemsPool.length)];
+        
+        // Tampilkan benda di kotak putih
+        const displayBox = document.getElementById('itemDisplay');
+        displayBox.innerHTML = "";
+        for (let i = 0; i < currentCount; i++) {
+            displayBox.innerHTML += randomEmoji + " ";
+        }
+
+        // Buat pilihan jawaban (1 jawaban benar, 3 pilihan salah yang mendekati)
+        let options = [currentCount];
+        while (options.length < 4) {
+            let fakeOption = currentCount + (Math.floor(Math.random() * 5) - 2); // variasi jawaban mengecoh sekitar angka asli
+            if (fakeOption >= 1 && fakeOption <= 20 && !options.includes(fakeOption)) {
+                options.push(fakeOption);
+            }
+        }
+        
+        // Acak urutan tombol pilihan jawaban
+        options.sort(() => Math.random() - 0.5);
+
+        // Render tombol ke HTML
+        const container = document.getElementById('optionsContainer');
+        container.innerHTML = "";
+        options.forEach(num => {
+            const button = document.createElement('button');
+            button.className = 'btn-option';
+            button.innerText = num;
+            button.onclick = function() { checkAnswer(num, button); };
+            container.appendChild(button);
+        });
+    }
+
+    function checkAnswer(selectedNum, clickedButton) {
+        if (hasAnswered) return; // Mencegah klik berulang setelah menjawab
+        hasAnswered = true;
+
+        const feedback = document.getElementById('feedbackText');
+        
+        if (selectedNum === currentCount) {
+            clickedButton.classList.add('correct');
+            feedback.innerHTML = "<span style='color: #4caf50;'>🎉 Hebat! Jawabanmu Benar! 🌟</span>";
+            score += 10;
+            document.getElementById('scoreValue').innerText = score;
+        } else {
+            clickedButton.classList.add('wrong');
+            feedback.innerHTML = `<span style='color: #f44336;'>❌ Oops! Kurang Tepat. Yang benar adalah ${currentCount}. Ayo coba lagi! 💪</span>`;
+            
+            // Highlight tombol yang seharusnya benar
+            const buttons = document.getElementsByClassName('btn-option');
+            for(let btn of buttons) {
+                if(parseInt(btn.innerText) === currentCount) {
+                    btn.classList.add('correct');
+                }
+            }
+        }
+        
+        document.getElementById('btnNext').style.display = "inline-block";
+    }
+
+    function nextQuestion() {
+        generateQuestion();
+    }
+
+    // Mulai game pertama kali saat halaman dimuat
+    generateQuestion();
+</script>
+
+</body>
+</html>
