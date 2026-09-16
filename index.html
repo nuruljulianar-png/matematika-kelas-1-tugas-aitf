@@ -14,78 +14,103 @@
             text-align: center;
         }
         .container {
-            max-width: 800px;
+            max-width: 700px;
             background: white;
             margin: 0 auto;
-            padding: 30px;
+            padding: 25px;
             border-radius: 25px;
             box-shadow: 0 8px 24px rgba(0,0,0,0.1);
             border: 5px solid #ffcc00;
         }
-        h1 { color: #ff5722; font-size: 2.5em; margin-bottom: 10px; }
-        .sub-title { color: #4caf50; font-size: 1.2em; font-weight: bold; margin-bottom: 30px; }
+        h1 { color: #ff5722; font-size: 2.3em; margin-bottom: 5px; }
+        .sub-title { color: #4caf50; font-size: 1.1em; font-weight: bold; margin-bottom: 25px; }
         
-        /* Section Materi Buatan Sendiri (Flashcards) */
-        .section-box {
+        /* ZONA 1: BELAJAR KARTU ANGKA */
+        .materi-box {
             background: #fff9db;
-            padding: 25px;
+            padding: 20px;
             border-radius: 20px;
-            margin-bottom: 30px;
-            border: 2px dashed #ff9800;
+            border: 3px dashed #ff9800;
+            margin-bottom: 20px;
         }
-        .flashcard-container {
+        .flashcard-display {
             display: flex;
             justify-content: center;
             align-items: center;
-            gap: 20px;
+            gap: 15px;
             margin: 20px auto;
-            max-width: 500px;
-            background: white;
-            padding: 20px;
-            border-radius: 15px;
-            border: 3px solid #ffbc42;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
         }
-        .flashcard-benda {
-            font-size: 3.5em;
-            flex: 1;
-            min-height: 100px;
+        .card {
+            background: white;
+            border: 4px solid #ffbc42;
+            border-radius: 20px;
+            width: 280px;
+            min-height: 200px;
+            padding: 15px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 6px 12px rgba(0,0,0,0.05);
+            cursor: pointer;
+        }
+        .card-benda {
+            font-size: 2.2em;
+            line-height: 1.3;
+            margin-bottom: 15px;
+            min-height: 90px;
             display: flex;
             justify-content: center;
             align-items: center;
             flex-wrap: wrap;
+            gap: 5px;
         }
-        .flashcard-angka {
-            font-size: 4em;
+        .card-angka {
+            font-size: 3.5em;
             font-weight: bold;
             color: #ff5722;
             background: #ffebe5;
-            padding: 10px 25px;
-            border-radius: 10px;
+            padding: 2px 25px;
+            border-radius: 12px;
             border: 2px solid #ff5722;
         }
-        .nav-materi-btn {
+        .btn-nav {
             background: #ff5722;
             color: white;
             border: none;
-            padding: 10px 20px;
-            font-size: 1.1em;
+            padding: 15px 20px;
+            font-size: 1.3em;
             font-weight: bold;
-            border-radius: 10px;
+            border-radius: 50%;
             cursor: pointer;
             box-shadow: 0 4px #c43d11;
         }
-        .nav-materi-btn:active {
+        .btn-nav:active {
             box-shadow: 0 1px #c43d11;
             transform: translateY(3px);
         }
+        .btn-mulai-game {
+            background: #4caf50;
+            color: white;
+            font-size: 1.4em;
+            font-weight: bold;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 15px;
+            cursor: pointer;
+            box-shadow: 0 5px #2e7d32;
+            margin: 20px auto;
+            display: none;
+        }
 
-        /* Section Game */
+        /* ZONA 2: GAME INTERAKTIF (DISEMBUNYIKAN DI AWAL) */
         .game-box {
             background: #e8f5e9;
             padding: 25px;
             border-radius: 20px;
             border: 3px solid #2e7d32;
+            display: none;
+            margin-top: 20px;
         }
         .item-display {
             background: white;
@@ -94,59 +119,43 @@
             justify-content: center;
             align-items: center;
             flex-wrap: wrap;
-            gap: 10px;
+            gap: 8px;
             padding: 20px;
             border-radius: 15px;
             border: 2px solid #a5d6a7;
-            font-size: 3em;
+            font-size: 2.5em;
         }
         .options-container {
             display: flex;
             justify-content: center;
-            gap: 15px;
-            margin-top: 25px;
+            gap: 12px;
+            margin-top: 20px;
             flex-wrap: wrap;
         }
         .btn-option {
             background: #2196f3;
             color: white;
-            font-size: 1.8em;
+            font-size: 1.6em;
             font-weight: bold;
             border: none;
-            padding: 15px 30px;
+            padding: 12px 25px;
             border-radius: 15px;
             cursor: pointer;
             box-shadow: 0 5px #0b7dda;
-            transition: 0.1s;
-        }
-        .btn-option:active {
-            box-shadow: 0 2px #0b7dda;
-            transform: translateY(3px);
         }
         .btn-option.correct { background-color: #4caf50 !important; box-shadow: 0 5px #388e3c; }
         .btn-option.wrong { background-color: #f44336 !important; box-shadow: 0 5px #d32f2f; }
-
-        .feedback {
-            font-size: 1.5em;
-            font-weight: bold;
-            margin-top: 20px;
-            min-height: 40px;
-        }
-        .score-box {
-            font-size: 1.3em;
-            font-weight: bold;
-            color: #2e7d32;
-            margin-top: 15px;
-        }
+        .feedback { font-size: 1.4em; font-weight: bold; margin-top: 15px; min-height: 35px; }
+        .score-box { font-size: 1.2em; font-weight: bold; color: #2e7d32; margin-top: 10px; }
         .btn-next {
             background: #ff9800;
             color: white;
-            font-size: 1.2em;
+            font-size: 1.1em;
             border: none;
-            padding: 10px 25px;
+            padding: 8px 20px;
             border-radius: 10px;
             cursor: pointer;
-            margin-top: 15px;
+            margin-top: 10px;
             display: none;
             font-weight: bold;
         }
@@ -158,31 +167,33 @@
     <h1>🔢 Yuk, Belajar Membilang! 🌟</h1>
     <p class="sub-title">Bahan Ajar Mandiri oleh Ibu Nurul Juliana (Matematika Kelas 1 SD)</p>
 
-    <!-- MATERI BUATAN SENDIRI: KARTU DIGITAL INTERAKTIF -->
-    <div class="section-box">
-        <h3>📖 Langkah 1: Mari Belajar Membilang Benda</h3>
-        <p style="margin-top:-5px; color:#555;">Gunakan tombol panah untuk melihat contoh jumlah benda, lalu klik kartu untuk mendengar suaranya!</p>
+    <!-- TAHAP 1: MENGENAL ANGKA LEWAT KARTU DIGITAL -->
+    <div class="materi-box" id="zonaMateri">
+        <h3>📖 Langkah 1: Ayo Kenali Angka 1 sampai 20!</h3>
+        <p style="color:#555; margin-top:-5px;">Klik tombol panah untuk mengubah kartu, klik kotaknya untuk mendengar suara AI!</p>
         
-        <div style="display: flex; justify-content: center; align-items: center; gap: 10px;">
-            <button class="nav-materi-btn" onclick="gantiMateri(-1)">⬅️ Kiri</button>
+        <div class="flashcard-display">
+            <button class="btn-nav" onclick="geserMateri(-1)">⬅️</button>
             
-            <div class="flashcard-container" onclick="suaraMateri()" style="cursor: pointer;" title="Klik untuk mendengar suara">
-                <div class="flashcard-benda" id="matBenda">🍎</div>
-                <div class="flashcard-angka" id="matAngka">1</div>
+            <div class="card" onclick="suaraMateri()" title="Klik untuk mendengar suara">
+                <div class="card-benda" id="matBenda">🍎</div>
+                <div class="card-angka" id="matAngka">1</div>
             </div>
             
-            <button class="nav-materi-btn" onclick="gantiMateri(1)">Kanan ➡️</button>
+            <button class="btn-nav" onclick="geserMateri(1)">➡️</button>
         </div>
-        <p style="font-size: 0.9em; color: #ff5722; font-weight: bold;">💡 Klik kotaknya untuk mengeluarkan Suara AI Membilang!</p>
+        <p style="font-size: 0.9em; color: #ff5722; font-weight: bold;">Kemajuan Belajar: <span id="progressMateri">1</span> / 20</p>
+        
+        <!-- Tombol pemicu game yang akan muncul setelah anak belajar -->
+        <button class="btn-mulai-game" id="btnBukaGame" onclick="aktifkanGameArea()">🎮 Hore! Yuk Sekarang Kita Main Game!</button>
     </div>
 
-    <!-- GAME INTERAKTIF -->
-    <div class="game-box">
+    <!-- TAHAP 2: BERMAIN GAME (MUNCUL PALING AKHIR) -->
+    <div class="game-box" id="zonaGame">
         <h3>🎮 Langkah 2: Mainkan Game Hitung Benda!</h3>
         <p>Hitunglah berapa banyak benda di dalam kotak putih, lalu klik angka yang benar!</p>
         
-        <div class="item-display" id="itemDisplay">🍎 🍎 🍎</div>
-        
+        <div class="item-display" id="itemDisplay"></div>
         <div class="options-container" id="optionsContainer"></div>
 
         <div class="feedback" id="feedbackText"></div>
@@ -192,91 +203,75 @@
 </div>
 
 <script>
-    // Data Materi Mandiri Buatan Sendiri (1-20)
-    let materiIndex = 1;
-    const materiEmoji = ['🍎', '🍓', '⭐', '🎈', '🐱', '🚗', '🍦', '🐝', '🍩', '🎁', '🦖', '⚽', '⏰', '🍉', '🍍', '🦁', '🚀', '🎨', '🧁', '🌻'];
-    const kataAngka = ["satu", "dua", "tiga", "empat", "lima", "enam", "tujuh", "delapan", "sembilan", "sepuluh", "sebelas", "dua belas", "tiga belas", "empat belas", "lima belas", "enam belas", "tujuh belas", "delapan belas", "sembilan belas", "dua puluh"];
+    // LOGIKA KARTU BELAJAR (1-20)
+    let indexMateri = 1;
+    const daftarEmoji = ['🍎', '🍓', '⭐', '🎈', '🐱', '🚗', '🍦', '🐝', '🍩', '🎁', '🦖', '⚽', '⏰', '🍉', '🍍', '🦁', '🚀', '🎨', '🧁', '🌻'];
+    const namaAngka = ["satu", "dua", "tiga", "empat", "lima", "enam", "tujuh", "delapan", "sembilan", "sepuluh", "sebelas", "dua belas", "tiga belas", "empat belas", "lima belas", "enam belas", "tujuh belas", "delapan belas", "sembilan belas", "dua puluh"];
 
-    function updateMateriDOM() {
-        document.getElementById('matAngka').innerText = materiIndex;
+    function perbaruiTampilanKartu() {
+        document.getElementById('matAngka').innerText = indexMateri;
+        document.getElementById('progressMateri').innerText = indexMateri;
+        
         const boxBenda = document.getElementById('matBenda');
         boxBenda.innerHTML = "";
-        let emojiPilihan = materiEmoji[materiIndex - 1];
-        for(let i=0; i<materiIndex; i++) {
-            boxBenda.innerHTML += emojiPilihan + " ";
+        let emojiAktif = daftarEmoji[indexMateri - 1];
+        
+        for(let i = 0; i < indexMateri; i++) {
+            boxBenda.innerHTML += emojiAktif + " ";
         }
-        // Atur ukuran font otomatis biar muat jika benda banyak
-        if (materiIndex > 10) boxBenda.style.fontSize = "2em";
-        else boxBenda.style.fontSize = "3.5em";
+        
+        // Atur ukuran tulisan emoji agar rapi saat jumlahnya banyak
+        if (indexMateri > 12) boxBenda.style.fontSize = "1.5em";
+        else if (indexMateri > 6) boxBenda.style.fontSize = "2em";
+        else boxBenda.style.fontSize = "2.8em";
+
+        // Jika anak sudah berhasil melihat kartu sampai angka 20, tombol game akan muncul
+        if(indexMateri === 20) {
+            document.getElementById('btnBukaGame').style.display = "block";
+        }
     }
 
-    function gantiMateri(arah) {
-        materiIndex += arah;
-        if(materiIndex < 1) materiIndex = 20;
-        if(materiIndex > 20) materiIndex = 1;
-        updateMateriDOM();
+    function geserMateri(arah) {
+        indexMateri += arah;
+        if(indexMateri < 1) indexMateri = 1;
+        if(indexMateri > 20) indexMateri = 20;
+        perbaruiTampilanKartu();
         suaraMateri();
     }
 
     function suaraMateri() {
         if ('speechSynthesis' in window) {
             window.speechSynthesis.cancel();
-            let teks = "Ada " + materiIndex + " " + kataAngka[materiIndex-1];
-            let ucapan = new SpeechSynthesisUtterance(teks);
+            let kalimat = "Ada " + indexMateri + " " + namaAngka[indexMateri - 1];
+            let ucapan = new SpeechSynthesisUtterance(kalimat);
             ucapan.lang = 'id-ID';
-            ucapan.rate = 0.8;
+            ucapan.rate = 0.85;
             ucapan.pitch = 1.3;
             window.speechSynthesis.speak(ucapan);
         }
     }
 
-    // Bagian Logika Game Kontrol
-    const itemsPool = ['🍎', '🍓', '⭐', '🎈', '🐱', '🚗', '🍦', '🐝'];
-    let currentCount = 0;
-    let score = 0;
-    let hasAnswered = false;
+    function aktifkanGameArea() {
+        // Sembunyikan modul belajar kartunya, tampilkan gamenya
+        document.getElementById('zonaMateri').style.display = "none";
+        document.getElementById('zonaGame').style.display = "block";
+        generateQuestion();
+    }
+
+    // LOGIKA PERMAINAN GAME
+    const kumpulanItemGame = ['🍎', '🍓', '⭐', '🎈', '🐱', '🚗', '🍦', '🐝'];
+    let jumlahBendaGame = 0;
+    let skorSiswa = 0;
+    let statusMenjawab = false;
 
     function generateQuestion() {
-        hasAnswered = false;
+        statusMenjawab = false;
         document.getElementById('feedbackText').innerText = "";
         document.getElementById('btnNext').style.display = "none";
         
-        currentCount = Math.floor(Math.random() * 20) + 1;
-        const randomEmoji = itemsPool[Math.floor(Math.random() * itemsPool.length)];
+        jumlahBendaGame = Math.floor(Math.random() * 20) + 1;
+        const emojiGame = kumpulanItemGame[Math.floor(Math.random() * kumpulanItemGame.length)];
         
-        const displayBox = document.getElementById('itemDisplay');
-        displayBox.innerHTML = "";
-        for (let i = 0; i < currentCount; i++) {
-            displayBox.innerHTML += randomEmoji + " ";
-        }
-        if (currentCount > 10) displayBox.style.fontSize = "2em";
-        else displayBox.style.fontSize = "3em";
-
-        let options = [currentCount];
-        while (options.length < 4) {
-            let fakeOption = currentCount + (Math.floor(Math.random() * 5) - 2);
-            if (fakeOption >= 1 && fakeOption <= 20 && !options.includes(fakeOption)) {
-                options.push(fakeOption);
-            }
-        }
-        
-        options.sort(() => Math.random() - 0.5);
-
-        const container = document.getElementById('optionsContainer');
-        container.innerHTML = "";
-        options.forEach(num => {
-            const button = document.createElement('button');
-            button.className = 'btn-option';
-            button.innerText = num;
-            button.onclick = function() { checkAnswer(num, button); };
-            container.appendChild(button);
-        });
-    }
-
-    function checkAnswer(selectedNum, clickedButton) {
-        if (hasAnswered) return;
-        hasAnswered = true;
-        const feedback = document.getElementById('feedbackText');
-        
-        if (selectedNum === currentCount) {
-            clickedButton.classList.add('correct');
+        const wadahDisplay = document.getElementById('itemDisplay');
+        wadahDisplay.innerHTML = "";
+        for (let i = 0; i < jumlahBendaGame; i++) {
