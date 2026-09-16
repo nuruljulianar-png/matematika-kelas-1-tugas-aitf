@@ -25,7 +25,7 @@
         h1 { color: #ff5722; font-size: 2.5em; margin-bottom: 10px; }
         .sub-title { color: #4caf50; font-size: 1.2em; font-weight: bold; margin-bottom: 30px; }
         
-        /* Section Video */
+        /* Section Audio */
         .section-box {
             background: #fff9db;
             padding: 20px;
@@ -33,17 +33,10 @@
             margin-bottom: 30px;
             border: 2px dashed #ff9800;
         }
-        .video-container {
-            position: relative;
-            padding-bottom: 56.25%;
-            height: 0;
-            overflow: hidden;
-            border-radius: 15px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-        }
-        .video-container iframe {
-            position: absolute;
-            top: 0; left: 0; width: 100%; height: 100%;
+        audio {
+            width: 100%;
+            max-width: 500px;
+            margin-top: 10px;
         }
 
         /* Section Game */
@@ -124,14 +117,15 @@
     <h1>🔢 Yuk, Belajar Membilang! 🌟</h1>
     <p class="sub-title">Matematika Seru untuk Kelas 1 SD (Benda 1 - 20)</p>
 
-    <!-- KANVAS PEMBELAJARAN: VIDEO MATERI -->
+    <!-- MEDIA PENDUKUNG: AUDIO LAGU BERHITUNG -->
     <div class="section-box">
-        <h3>📺 Langkah 1: Tonton Video Penjelasan Ini Ya!</h3>
-        <p style="font-size: 0.9em; color: #666; margin-top: -5px;">💡 *Klik tombol putar dan pastikan ikon volume di dalam video tidak tersilang ya!*</p>
-        <div class="video-container">
-            <!-- Video baru yang bersumber dari Balai Penjaminan Mutu Pendidikan / Kemendikbud yang aman diembed -->
-            <iframe src="https://youtube.com" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
-        </div>
+        <h3>🎵 Langkah 1: Yuk Bernyanyi Bersama!</h3>
+        <p style="margin-top:-5px; color:#555;">Klik tombol putar di bawah untuk mendengarkan lagu angka ceria:</p>
+        <!-- Menggunakan instrumen musik berhitung yang aman diakses -->
+        <audio controls id="bgMusic">
+            <source src="https://soundhelix.com" type="audio/mpeg">
+            Browser kamu tidak mendukung pemutar audio.
+        </audio>
     </div>
 
     <!-- KANVAS APLIKASI INTERAKTIF: GAME MEMBILANG -->
@@ -142,7 +136,7 @@
         <div class="item-display" id="itemDisplay">🍎 🍎 🍎</div>
         
         <div class="options-container" id="optionsContainer">
-            <!-- Tombol Jawaban diisi JavaScript -->
+            <!-- Tombol Pilihan -->
         </div>
 
         <div class="feedback" id="feedbackText"></div>
